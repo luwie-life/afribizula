@@ -1,12 +1,12 @@
 import Navbar from "../components/layout/Navbar";
 import Hero from "../Sections/Hero";
 import Vision from "../Sections/Vision";
-import Solutions from "../sections/Solutions";
-import Marketplace from "../sections/Marketplace";
-import Pricing from "../sections/Pricing";
-import JoinEcosystem from "../sections/JoinEcosystem";
-import FAQ from "../sections/Faq";
-import Footer from "../sections/Footer";
+import Solutions from "../Sections/Solutions";
+import Marketplace from "../Sections/Marketplace";
+import Pricing from "../Sections/Pricing";
+import JoinEcosystem from "../Sections/JoinEcosystem";
+import FAQ from "../Sections/Faq";
+import Footer from "../Sections/Footer";
 import SEO from "../components/seo/SEO";
 
 const Home = () => {
