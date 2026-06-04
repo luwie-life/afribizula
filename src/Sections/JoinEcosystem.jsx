@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const roles = [
   {
@@ -147,7 +148,7 @@ const JoinEcosystem = () => {
                 {role.text}
               </p>
 
-              <button
+              <Link to="/register"
                 style={{
                   width: "100%",
                   padding: "1rem",
@@ -160,7 +161,7 @@ const JoinEcosystem = () => {
                 }}
               >
                 {role.action}
-              </button>
+              </Link>
             </motion.div>
           ))}
         </div>

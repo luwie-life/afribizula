@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 
 import { motion, AnimatePresence } from "framer-motion";
 
+import { Link } from "react-router-dom";
+
 import {
   Menu,
   X,
@@ -268,8 +270,8 @@ const Navbar = () => {
           >
 
             {/* LOGIN */}
-
-            <button
+            
+            <Link to="/login"
               className="desktop-login"
               style={{
                 border: "none",
@@ -291,7 +293,7 @@ const Navbar = () => {
               }}
             >
               Login
-            </button>
+            </Link>
 
             {/* WHITE PRIMARY */}
 
@@ -299,7 +301,7 @@ const Navbar = () => {
 
               <Magnetic>
 
-                <button
+                <Link to="/register"
                   style={{
                     border: "none",
 
@@ -330,7 +332,7 @@ const Navbar = () => {
                   }}
                 >
                   Start Free
-                </button>
+                </Link>
 
               </Magnetic>
 
@@ -461,7 +463,7 @@ const Navbar = () => {
 
             {/* WHITE PRIMARY */}
 
-            <button
+            <Link to="/register"
               style={{
                 marginTop: "1rem",
 
@@ -491,7 +493,7 @@ const Navbar = () => {
               }}
             >
               Start Free
-            </button>
+            </Link>
 
             {/* BLACK SECONDARY */}
 

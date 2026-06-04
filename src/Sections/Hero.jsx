@@ -6,6 +6,9 @@ import GradientOrb from "../components/ui/GradientOrb";
 
 import Magnetic from "../components/motions/Magnetic";
 
+import { Link } from "react-router-dom";
+
+
 const Hero = () => {
   return (
     <section
@@ -230,7 +233,7 @@ const Hero = () => {
 
             <Magnetic>
 
-              <button
+              <Link to="/register"
                 style={{
                   border: "none",
 
@@ -259,7 +262,7 @@ const Hero = () => {
                 }}
               >
                 Start Free
-              </button>
+              </Link>
 
             </Magnetic>
 

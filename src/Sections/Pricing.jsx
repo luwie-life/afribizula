@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const plans = [
   {
@@ -450,7 +451,7 @@ const Pricing = () => {
 
                 {/* BUTTON */}
 
-                <button
+                <Link to="/register"
                   style={{
                     width: "100%",
 
@@ -480,7 +481,7 @@ const Pricing = () => {
                   }}
                 >
                   Get Started
-                </button>
+                </Link>
 
                 {/* GLOW */}
 
