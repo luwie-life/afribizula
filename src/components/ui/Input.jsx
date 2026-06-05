@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { tokens } from "../../styles/tokens";
+import { tokens } from "../../Styles/Tokens";
 
 const Input = ({
   placeholder,
