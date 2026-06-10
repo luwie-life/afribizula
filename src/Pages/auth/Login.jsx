@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase";
 import {
   Mail,
   Lock,
@@ -14,6 +15,29 @@ import Button from "../../components/ui/Button";
 const Login = () => {
   const [showPassword, setShowPassword] =
     useState(false);
+  function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const userCredential =
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+      console.log(userCredential.user);
+
+      alert("Login Successful");
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
+    }
+  };
 
   return (
     <section className="auth-page">
