@@ -34,12 +34,15 @@ export function Empty({ title, children }) {
 
 export function Field({ label, error, hint, children }) {
   return (
-    <label className="field">
-      <span className="label">{label}</span>
-      {children}
+    // Hint and error sit outside the <label> so they are not part of the input's accessible name.
+    <div className="field">
+      <label className="field">
+        <span className="label">{label}</span>
+        {children}
+      </label>
       {hint && !error && <span className="hint">{hint}</span>}
-      {error && <span className="error-text">{error}</span>}
-    </label>
+      {error && <span className="error-text" role="alert">{error}</span>}
+    </div>
   );
 }
 

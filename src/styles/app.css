@@ -1,6 +1,6 @@
 /* Styles for application pages (dashboards, admin, ambassador). Marketing pages keep their own inline styles. */
 :root { --ink:#0A0A0A; --muted:#6b7280; --line:#e5e7eb; --bg:#f7f7f8; --accent:#7C3AED; --accent-ink:#5b21b6; --danger:#b91c1c; --ok:#15803d; }
-.shell { display:grid; grid-template-columns:240px 1fr; min-height:100vh; background:var(--bg); color:var(--ink); font-family:Inter, Poppins, sans-serif; }
+.shell { display:grid; grid-template-columns:240px minmax(0,1fr); min-height:100vh; background:var(--bg); color:var(--ink); font-family:Inter, Poppins, sans-serif; }
 .sidebar { background:#fff; border-right:1px solid var(--line); display:flex; flex-direction:column; padding:1.25rem 1rem; position:sticky; top:0; height:100vh; }
 .shell-admin .sidebar { background:#0f0f12; color:#fff; border-color:#222; }
 .shell-admin .sidebar nav a { color:#d4d4d8; }
@@ -15,11 +15,11 @@
 .sidebar-foot { display:flex; flex-direction:column; gap:.5rem; border-top:1px solid var(--line); padding-top:1rem; }
 .shell-admin .sidebar-foot { border-color:#27272a; }
 .menu-btn { display:none; background:none; border:none; font-size:1.4rem; cursor:pointer; color:inherit; }
-.main { padding:2rem; max-width:1200px; width:100%; }
+.main { padding:2rem; max-width:1200px; width:100%; min-width:0; }
 .page-header { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; margin-bottom:1.5rem; flex-wrap:wrap; }
 .page-header h1 { font-size:1.6rem; font-weight:650; letter-spacing:-.5px; }
 .page-actions { display:flex; gap:.5rem; flex-wrap:wrap; }
-.card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:1.25rem; }
+.card { min-width:0; background:#fff; border:1px solid var(--line); border-radius:14px; padding:1.25rem; }
 .card h2 { font-size:1.05rem; font-weight:600; margin-bottom:.75rem; }
 .grid { display:grid; gap:1rem; }
 .grid-2 { grid-template-columns:repeat(2, minmax(0,1fr)); }
@@ -84,7 +84,7 @@
 .choice button.selected { border-color:var(--accent); outline:2px solid #ddd6fe; }
 .choice button strong { display:block; margin-bottom:.25rem; }
 @media (max-width: 900px) {
-  .shell { grid-template-columns:1fr; }
+  .shell { grid-template-columns:minmax(0,1fr); }
   .sidebar { position:static; height:auto; padding:1rem; }
   .menu-btn { display:block; }
   .sidebar nav, .sidebar-foot, .sidebar-sub { display:none; }

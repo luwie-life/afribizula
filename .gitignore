@@ -32,3 +32,6 @@ server/.env.*
 !server/.env.example
 serviceAccountKey.json
 coverage
+
+# Browser smoke-test output
+e2e/.tmp

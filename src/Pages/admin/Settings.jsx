@@ -21,8 +21,11 @@ function PolicyForm({ policy, onSaved }) {
       return act.fail(f.type === "percent" ? "Enter a percentage between 0 and 100" : "Enter a valid amount");
     const next = { type: f.type, value, basis: f.basis };
     if (!window.confirm(`Set the commission policy to: ${describePolicy(next)}\n\nCommissions awaiting a policy will be calculated now. Continue?`)) return;
-    act.run(async () => { const { data } = await api.put("/admin/settings/commission-policy", next); onSaved(); return data; },
-      (data) => `Policy saved. ${data.applied.priced} commission(s) awaiting policy were calculated and moved to pending review; ${data.applied.voided} were not eligible and were voided.`);
+    // The parent shows the confirmation: this form re-mounts with the new policy after saving.
+    act.run(async () => {
+      const { data } = await api.put("/admin/settings/commission-policy", next);
+      onSaved(`Policy saved. ${data.applied.priced} commission(s) awaiting policy were calculated and moved to pending review; ${data.applied.voided} were not eligible and were voided.`);
+    });
   };
 
   return (
@@ -51,14 +54,16 @@ function PolicyForm({ policy, onSaved }) {
 
 export default function AdminSettings() {
   const state = useFetch("/admin/settings/commission-policy");
+  const [notice, setNotice] = useState("");
   return (
     <>
       <PageHeader title="Commission policy" subtitle="Controls how ambassador commissions are calculated" />
       <Alert kind="warn">The commission rate and rules are a business decision for the Bizula owner. Only enter values the owner has approved.</Alert>
+      <Alert kind="success" onClose={() => setNotice("")}>{notice}</Alert>
       <Loader state={state}>{(d) => (
         <div className="stack">
           <div className="card"><strong>Current policy:</strong> {describePolicy(d.policy) || "Not set — commissions are recorded as “awaiting policy”."}</div>
-          <PolicyForm key={JSON.stringify(d.policy)} policy={d.policy} onSaved={state.reload} />
+          <PolicyForm key={JSON.stringify(d.policy)} policy={d.policy} onSaved={(text) => { setNotice(text); state.reload(); }} />
         </div>
       )}</Loader>
     </>
