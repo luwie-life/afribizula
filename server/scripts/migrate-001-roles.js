@@ -23,10 +23,18 @@ const mixedCase = await users.find({ email: { $regex: "[A-Z]" } }).project({ _id
 console.log(`Users with legacy role values: ${legacy.length}`);
 console.log(`Users without status: ${noStatus}`);
 console.log(`Users with upper-case emails: ${mixedCase.length}`);
+// Legacy accounts never had a Business document; they must go through onboarding.
+const legacyIds = legacy.map((u) => u._id);
+const needOnboarding = await users.countDocuments({
+  $or: [{ _id: { $in: legacyIds } }, { role: "owner" }],
+  business: { $exists: false }, onboardingCompleted: true,
+});
+console.log(`Owners marked onboarded but without a business: ${needOnboarding}`);
 
 if (apply) {
   for (const u of legacy) await users.updateOne({ _id: u._id }, { $set: { role: "owner", legacyRole: u.role } });
   await users.updateMany({ status: { $exists: false } }, { $set: { status: "active" } });
+  await users.updateMany({ role: "owner", business: { $exists: false }, onboardingCompleted: true }, { $set: { onboardingCompleted: false } });
   for (const u of mixedCase) {
     const lower = u.email.toLowerCase();
     if (await users.findOne({ email: lower, _id: { $ne: u._id } })) {
