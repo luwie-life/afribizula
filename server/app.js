@@ -19,6 +19,15 @@ export function createApp(config) {
 
   app.use(helmet());
   app.use(
+    // CORS headers alone only stop a browser from *reading* a response; the request is
+    // still processed. Refuse requests from browser origins that are not allow-listed.
+    (req, res, next) => {
+      const origin = req.headers.origin;
+      if (origin && !config.clientUrls.includes(origin.replace(/\/$/, ""))) {
+        return res.status(403).json({ message: "Origin not allowed" });
+      }
+      next();
+    },
     cors({
       origin(origin, cb) {
         // Allow non-browser clients (no Origin header) and the configured frontends only.

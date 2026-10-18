@@ -1,4 +1,5 @@
 import { test, before, after } from "node:test";
+import User from "../models/User.js";
 import assert from "node:assert/strict";
 import { startStack } from "./helpers.js";
 
@@ -33,6 +34,14 @@ test("CORS only allows configured origins", async () => {
   assert.equal(ok.headers.get("access-control-allow-origin"), "http://localhost:5173");
   const evil = await s.api("GET", "/api/public/plans", { headers: { Origin: "https://evil.example" } });
   assert.equal(evil.headers.get("access-control-allow-origin"), null);
+  assert.equal(evil.status, 403);
+  // A request from a disallowed browser origin must not be processed at all.
+  const reg = await s.api("POST", "/api/auth/register", {
+    headers: { Origin: "https://evil.example" },
+    body: { name: "Evil", email: "evil-origin@x.test", password: "Password123" },
+  });
+  assert.equal(reg.status, 403);
+  assert.equal(await User.exists({ email: "evil-origin@x.test" }), null, "account must not have been created");
 });
 
 test("public plans expose the three monthly tiers flagged as unconfirmed", async () => {
